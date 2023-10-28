@@ -6,7 +6,7 @@
     </servlet>
     <servlet>
         <servlet-name>homeServlet</servlet-name>
-        <servlet-class>com.users.homeServlet</servlet-class>
+        <servlet-class>com.clothes_shop.controller.users.homeServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminDashboardServlet</servlet-name>

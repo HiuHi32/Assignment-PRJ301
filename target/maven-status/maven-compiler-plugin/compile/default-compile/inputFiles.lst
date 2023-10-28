@@ -1,10 +1,11 @@
+D:\FU Learning\SEM 2\Clothes_Shop\src\main\java\com\clothes_shop\controller\users\homeServlet.java
 D:\FU Learning\SEM 2\Clothes_Shop\src\main\java\com\clothes_shop\entity\Customer.java
 D:\FU Learning\SEM 2\Clothes_Shop\src\main\java\com\clothes_shop\entity\Products.java
 D:\FU Learning\SEM 2\Clothes_Shop\src\main\java\com\clothes_shop\controller\authenticationServlet.java
 D:\FU Learning\SEM 2\Clothes_Shop\src\main\java\com\clothes_shop\constant\Constant.java
 D:\FU Learning\SEM 2\Clothes_Shop\src\main\java\com\clothes_shop\dal\impl\ProductDAO.java
-D:\FU Learning\SEM 2\Clothes_Shop\src\main\java\com\users\homeServlet.java
 D:\FU Learning\SEM 2\Clothes_Shop\src\main\java\com\clothes_shop\dal\impl\CustomerDAO.java
 D:\FU Learning\SEM 2\Clothes_Shop\src\main\java\com\clothes_shop\controller\admin\AdminDashboardServlet.java
 D:\FU Learning\SEM 2\Clothes_Shop\src\main\java\com\clothes_shop\dal\DBContext.java
+D:\FU Learning\SEM 2\Clothes_Shop\src\main\java\com\clothes_shop\entity\PageControll.java
 D:\FU Learning\SEM 2\Clothes_Shop\src\main\java\com\clothes_shop\dal\GenericDAO.java
