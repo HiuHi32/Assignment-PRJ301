@@ -6,6 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<c:set var="pageSize" value="9" />
 <!-- Shop Section Begin -->
 <section class="shop spad">
     <div class="container">
@@ -13,7 +14,8 @@
             <div class="col-lg-3">
                 <div class="shop__sidebar">
                     <div class="shop__sidebar__search">
-                        <form action="home?action=search" method="POST">
+                        <form action="home" method="GET">
+                            <input type="text" name="action" value="search" style="display:none"/>
                             <input type="text" placeholder="Search..." name="keyword">
                             <button type="submit"><span class="icon_search"></span></button>
                         </form>
@@ -186,7 +188,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <c:forEach items="${listProduct}" var="product">
+                    <c:forEach items="${listProduct}" 
+                               var="product" 
+                               begin="${(pageControl.page - 1) * pageSize}"
+                               end="${pageControl.page * pageSize - 1}">
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" data-setbg="img/product/product-2.jpg">
@@ -227,13 +232,21 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="product__pagination">
-                            <a class="active" href="#">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <span>...</span>
-                            <a href="#">21</a>
-                        </div>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item ${pageControl.page <= 1 ? 'disabled' : ''}">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                </li>
+                                <c:forEach var="pageNumber" begin="1" end="${pageControl.totalPage}">
+                                    <li class="page-item ${pageNumber == pageControl.page ? 'active' : ''}">
+                                        <a class="page-link" href="?page=${pageNumber}">${pageNumber}</a>
+                                    </li>
+                                </c:forEach>
+                                <li class="page-item ${pageControl.page >= pageControl.totalPage ? 'disabled' : ''}" >
+                                    <a class="page-link" href="?page=${pageControl.page + 1}">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
