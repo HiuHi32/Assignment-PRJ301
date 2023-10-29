@@ -11,8 +11,8 @@
     </li>
     <li class="breadcrumb-item active">Overview</li>
     <li class="breadcrumb-item ml-auto">
-        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#addBookModal">
-            <i class="fas fa-plus"></i> Add book
+        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#addProductModal">
+            <i class="fas fa-plus"></i> Add Product
         </button>
     </li>
 </ol>

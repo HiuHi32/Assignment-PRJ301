@@ -359,7 +359,7 @@ public abstract class GenericDAO<T> extends DBContext {
                 fieldValue = null;
             }
 
-            if (fieldValue != null && !fieldName.equalsIgnoreCase("id")) {
+            if (fieldValue != null && !fieldName.equalsIgnoreCase("id") && !fieldName.equalsIgnoreCase("productID")) {
                 sqlBuilder.append(fieldName).append(", ");
                 parameters.add(fieldValue);
             }

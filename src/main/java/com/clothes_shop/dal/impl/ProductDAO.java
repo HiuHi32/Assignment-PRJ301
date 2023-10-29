@@ -42,8 +42,8 @@ public class ProductDAO extends GenericDAO<Products> {
     }
 
     @Override
-    public int insert(Products t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int insert(Products products) {
+        return insertGenericDAO(products);
     }
 
     public List<Products> findContainsByProperty(String property, String keyword) {
@@ -67,5 +67,32 @@ public class ProductDAO extends GenericDAO<Products> {
 
     public int findTotalRecord() {
         return findTotalRecordGenericDAO(Products.class);
+    }
+
+    public void deleteById(int productID) {
+       String sql = "DELETE FROM [dbo].[Products]\n"
+                + "      WHERE productID = ?";
+        parameterMap = new LinkedHashMap<>();
+        parameterMap.put("productID", productID);
+        updateGenericDAO(sql, parameterMap);
+    }
+
+    public void updateproduct(Products products) {   
+        String sql = "UPDATE [dbo].[Products]\n"
+                + "   SET [typeID] =?\n"
+                + "      ,[image] = ?\n"
+                + "      ,[stockQuantity] = ?\n"
+                + "      ,[productName] = ?\n"
+                + "      ,[price] = ?\n"
+                + " WHERE productID = ?";
+        parameterMap = new LinkedHashMap<>();
+        
+        parameterMap.put("typeID", products.getTypeID());
+        parameterMap.put("image", products.getImage());
+        parameterMap.put("quantity", products.getStockQuantity());
+        parameterMap.put("name", products.getProductName());
+        parameterMap.put("price", products.getPrice());  
+        parameterMap.put("productID", products.getProductID());
+        updateGenericDAO(sql, parameterMap);
     }
 }

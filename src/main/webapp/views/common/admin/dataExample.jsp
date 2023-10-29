@@ -10,23 +10,23 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Image</th>
-                        <th>Author</th>
+                        <th>ProductID</th>
+                        <th>TypeID</th>
+                        <th>ProductName</th>
                         <th>Price</th>
                         <th>Quantity</th>
-                        <th>Description</th>
+                        <th>Image</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
-                        <th>Name</th>
-                        <th>Image</th>
-                        <th>Author</th>
+                        <th>ProductID</th>
+                        <th>TypeID</th>
+                        <th>ProductName</th>
                         <th>Price</th>
                         <th>Quantity</th>
-                        <th>Description</th>
+                        <th>Image</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>
@@ -48,7 +48,15 @@
                                 <i class="fa fa-edit fa-2x" style="color: #469408"
                                    data-toggle="modal"
                                    onclick="editModal(this)"
-                                   data-target="#editBookModal"></i>
+                                   data-target="#editProductModal"></i>
+                                &nbsp;&nbsp;&nbsp;
+                                <!--Delete-->
+                                <i class="fa fa-trash fa-2x"
+                                   style="color: #e70808"
+                                   data-toggle="modal"
+                                   data-target="#delete-modal"
+                                   onclick="deleteProductModal(${product.productID})">
+                                </i>
                             </td>
                         </tr>
 

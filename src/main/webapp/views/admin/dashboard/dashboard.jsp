@@ -72,14 +72,14 @@
             <!-- Logout Modal-->
         <jsp:include page="../../common/admin/logOutModal.jsp"></jsp:include>
 
-            <!--Add boook modal-->
-        <jsp:include page="../../common/admin/addBookModal.jsp"></jsp:include>
+            <!--Add product modal-->
+        <jsp:include page="../../common/admin/addProductModal.jsp"></jsp:include>
 
-            <!--Delete book modal-->
-        <jsp:include page="../../common/admin/deleteBookModal.jsp"></jsp:include>
+            <!--Delete product modal-->
+        <jsp:include page="../../common/admin/deleteProductModal.jsp"></jsp:include>
 
-            <!--Edit Book Modal-->
-        <jsp:include page="../../common/admin/editBookModal.jsp"></jsp:include>
+            <!--Edit Product Modal-->
+        <jsp:include page="../../common/admin/editProductModal.jsp"></jsp:include>
 
             <!-- Bootstrap core JavaScript-->
             <script src="${pageContext.request.contextPath}/vendor/jquery/jquery.min.js"></script>
