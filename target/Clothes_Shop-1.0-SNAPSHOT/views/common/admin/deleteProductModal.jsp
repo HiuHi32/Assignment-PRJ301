@@ -14,7 +14,7 @@
             <div class="modal-footer">
                 <form action="dashboard?action=delete" method="POST">
                     <div class="form-group" style="display: none">
-                        <input type="text" class="form-control" id="pidDeleteInput" name="pid">
+                        <input type="text" class="form-control" id="pidDeleteInput" name="productID">
                     </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
                     <button type="submit" class="btn btn-danger">Có</button>
@@ -26,7 +26,7 @@
 
 <script>
     function deleteProductModal(productID) {
-        $('#productIDDeleteInput').val(productID);
+        $('#pidDeleteInput').val(productID);
     }
 </script>
 

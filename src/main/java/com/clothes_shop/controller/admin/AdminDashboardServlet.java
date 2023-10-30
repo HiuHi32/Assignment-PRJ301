@@ -146,7 +146,7 @@ public class AdminDashboardServlet extends HttpServlet {
         //get price
         int price = Integer.parseInt(request.getParameter("price"));
         //get quantity
-        int stockQuantity = Integer.parseInt(request.getParameter("stockQuantity"));
+        int stockQuantity = Integer.parseInt(request.getParameter("quantity"));
        
 
         String imagePath = null;
