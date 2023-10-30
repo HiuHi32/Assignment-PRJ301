@@ -4,7 +4,7 @@
  */
 package com.clothes_shop.controller;
 
-import  com.clothes_shop.constant.Constant;
+import com.clothes_shop.constant.Constant;
 import com.clothes_shop.dal.impl.CustomerDAO;
 import com.clothes_shop.entity.Customer;
 import java.io.IOException;
@@ -25,15 +25,18 @@ public class authenticationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            String action = request.getParameter("action");
-            String url = "";
-            switch (action) {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+        String action = request.getParameter("action");
+        String url = "";
+        switch (action) {
             case "login":
                 url = "views/user/home_page/login.jsp";
                 break;
             case "logout":
                 url = "home";
-                logout(request,response);
+                logout(request, response);
                 break;
             case "register":
                 url = "views/user/home_page/register.jsp";
@@ -42,13 +45,16 @@ public class authenticationServlet extends HttpServlet {
                 request.getRequestDispatcher("views/user/home_page/login.jsp").forward(request, response);
                 break;
         }
-            request.getRequestDispatcher(url).forward(request, response);
+        request.getRequestDispatcher(url).forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");       
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+        String action = request.getParameter("action");
         switch (action) {
             case "login":
                 login(request, response);
@@ -80,17 +86,18 @@ public class authenticationServlet extends HttpServlet {
             request.setAttribute("error", "Username or password incorrect !");
             //chuyển lại về trang login.jsp
             request.getRequestDispatcher("views/user/home_page/login.jsp").forward(request, response);
-            
+
         } else {
             //set vào session account
             HttpSession session = request.getSession();
-            session.setAttribute(Constant.SESSION_CUSTOMER, customer);           
-                //chuyển về trang home
-                response.sendRedirect("home");            
+            session.setAttribute(Constant.SESSION_CUSTOMER, customer);
+            //chuyển về trang home
+            response.sendRedirect("home");
         }
-        
+
     }
-     private void logout(HttpServletRequest request, HttpServletResponse response) {
+
+    private void logout(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         session.removeAttribute(Constant.SESSION_CUSTOMER);
         //session.removeAttribute("cart");
@@ -103,15 +110,15 @@ public class authenticationServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
-        
+
         //tạo đối tượng từ dữ liệu đã get về
         Customer customer = Customer.builder()
-                        .customerName(username)
-                        .password(password)
-                        .email(email)
-                        .roleId(Constant.ROLE_USER)
-                        .build();
-        
+                .customerName(username)
+                .password(password)
+                .email(email)
+                .roleId(Constant.ROLE_USER)
+                .build();
+
         //kiểm tra xem username đã từng tồn tại trong DB chưa
         boolean isExist = customerDAO.findByUsername(username);
         if (!isExist) {
@@ -119,11 +126,11 @@ public class authenticationServlet extends HttpServlet {
             customerDAO.insert(customer);
             //chuyển về trang home
             response.sendRedirect("home");
-        }else {
+        } else {
             //chuyển về trang home
             request.setAttribute("error", "Account exist, please choose other !!");
             request.getRequestDispatcher("views/user/home_page/register.jsp").forward(request, response);
         }
     }
-     
+
 }

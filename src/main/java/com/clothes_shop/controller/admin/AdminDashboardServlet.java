@@ -29,7 +29,10 @@ public class AdminDashboardServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException {       
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
         GenericDAO<Products> productDAO = new ProductDAO();
         //GenericDAO<Category> categoryAO = new CategoryDAO();
 
@@ -110,7 +113,7 @@ public class AdminDashboardServlet extends HttpServlet {
 
             File image = new File(dir, part.getSubmittedFileName());
             part.write(image.getAbsolutePath());
-            imagePath = "/BookStore-FA23/images/" + image.getName();
+            imagePath = request.getContextPath() +  "/images/" + image.getName();
         } catch (Exception e) {
         }
         Products products = Products.builder()
@@ -184,7 +187,7 @@ public class AdminDashboardServlet extends HttpServlet {
         products.setStockQuantity(stockQuantity);
         products.setImage(imagePath);
 
-        //taoj doi tuong
+        //tao doi tuong
         ProductDAO dao = new ProductDAO();
         dao.updateproduct(products);
     }

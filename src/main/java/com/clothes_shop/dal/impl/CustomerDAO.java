@@ -47,10 +47,29 @@ public class CustomerDAO extends GenericDAO {
                 + "WHERE CustomerName = ?";
         parameterMap = new LinkedHashMap<>();
         parameterMap.put("username", username);
-        
 
         List<Customer> list = queryGenericDAO(Customer.class, sql,
                 parameterMap);
-        return !list.isEmpty();                             
+        return !list.isEmpty();
+    }
+
+    public void updateProfile(Customer customer) {
+        String sql = "UPDATE [dbo].[Customer]\n"
+                + "   SET [email] = ?\n"
+                + " WHERE customerName = ?";
+        parameterMap = new LinkedHashMap<>();
+        parameterMap.put("email", customer.getEmail());
+        parameterMap.put("username", customer.getCustomerName());
+        updateGenericDAO(sql, parameterMap);
+    }
+
+    public void updatePassword(String username, String password) {
+        String sql = "UPDATE [dbo].[Customer]\n"
+                + "   SET [password] = ?\n"
+                + " WHERE customerName = ?";
+        parameterMap = new LinkedHashMap<>();
+        parameterMap.put("password", password);
+        parameterMap.put("username", username);
+        updateGenericDAO(sql, parameterMap);
     }
 }
