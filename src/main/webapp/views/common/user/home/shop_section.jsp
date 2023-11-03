@@ -194,18 +194,15 @@
                                end="${pageControl.page * pageSize - 1}">
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-2.jpg">
-                                    <ul class="product__hover">
-                                        <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                                        <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a>
-                                        </li>
-                                        <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
-                                    </ul>
-                                </div>
+                                <img class="product__item__pic set-bg" src="${product.image}" style="object-fit: contain"/>
                                 <div class="product__item__text">
                                     <!--Name san pham-->
                                     <h6>${product.getProductName()}</h6>
-                                    <a href="#" class="add-cart">+ Add To Cart</a>
+                                    <form action="check-out?action=add-product" method="POST">
+                                        <input type="text" name="id" value="${product.productID}" style="display: none"/>
+                                        <input type="text" name="quantity" value="1" style="display: none"/>
+                                        <a onclick="this.closest('form').submit()" class="add-cart" style="cursor: pointer;">+ Add To Cart</a>
+                                    </form>
                                     <div class="rating">
                                         <i class="fa fa-star-o"></i>
                                         <i class="fa fa-star-o"></i>

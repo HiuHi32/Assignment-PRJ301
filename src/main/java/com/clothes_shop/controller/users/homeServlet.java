@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class homeServlet extends HttpServlet {
 
@@ -18,6 +19,7 @@ public class homeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         //set enconding UTF-8
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
@@ -26,7 +28,7 @@ public class homeServlet extends HttpServlet {
         //get du lieu tu db len
         List<Products> listProduct = findProductDoGet(request, pageControll);
 
-        request.setAttribute("listProduct", listProduct);
+        session.setAttribute("listProduct", listProduct);
         request.setAttribute("pageControl", pageControll);
         request.getRequestDispatcher("views/user/home_page/homePage.jsp").forward(request, response);
     }

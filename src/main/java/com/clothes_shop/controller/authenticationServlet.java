@@ -28,7 +28,9 @@ public class authenticationServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
-        String action = request.getParameter("action");
+        String action = request.getParameter("action") == null 
+                ? "" 
+                : request.getParameter("action");;
         String url = "";
         switch (action) {
             case "login":
@@ -37,7 +39,8 @@ public class authenticationServlet extends HttpServlet {
             case "logout":
                 url = "home";
                 logout(request, response);
-                break;
+                response.sendRedirect(url);
+                return;
             case "register":
                 url = "views/user/home_page/register.jsp";
                 break;
@@ -130,6 +133,33 @@ public class authenticationServlet extends HttpServlet {
             //chuyển về trang home
             request.setAttribute("error", "Account exist, please choose other !!");
             request.getRequestDispatcher("views/user/home_page/register.jsp").forward(request, response);
+        }
+    }
+
+    private void giaDN(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        CustomerDAO customerDAO = new CustomerDAO();
+        //get ve cac thong tin 
+        //get username
+        String username = "user";
+        //get password
+        String password = "1";
+
+        Customer customer = Customer.builder()
+                .customerName(username)
+                .password(password)
+                .build();
+        //kiểm tra xem account có tồn tại trong DB
+        customer = customerDAO.findByCustomerNamePassword(customer);
+        //nếu account không tồn tài <=> tài khoảng hoặc mật khẩu sai
+        if (customer == null) {
+            request.setAttribute("error", "Username or password incorrect !");
+            //chuyển lại về trang login.jsp
+            request.getRequestDispatcher("views/user/home_page/login.jsp").forward(request, response);
+
+        } else {
+            //set vào session account
+            HttpSession session = request.getSession();
+            session.setAttribute(Constant.SESSION_CUSTOMER, customer);
         }
     }
 

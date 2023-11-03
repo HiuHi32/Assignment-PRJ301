@@ -43,6 +43,19 @@ public class ProductDAO extends GenericDAO<Products> {
 
     @Override
     public int insert(Products products) {
+        String sql = "INSERT INTO [dbo].[Products]\n"
+                + "           ([typeID]\n"
+                + "           ,[productName]\n"
+                + "           ,[price]\n"
+                + "           ,[stockQuantity]\n"
+                + "           ,[image])\n"
+                + "     VALUES\n"
+                + "           (?, ?, ? ,? , ?)";
+        parameterMap.put("typeID", products.getTypeID());
+        parameterMap.put("productName", products.getProductName());
+        parameterMap.put("price", products.getPrice());
+        parameterMap.put("stockQuantity", products.getStockQuantity());
+        parameterMap.put("image", products.getImage());
         return insertGenericDAO(products);
     }
 
@@ -60,7 +73,7 @@ public class ProductDAO extends GenericDAO<Products> {
                 + "offset ? ROWS\n"
                 + "FETCH NEXT ? ROWS ONLY";
         parameterMap = new HashMap<>();
-        parameterMap.put("offset", (page-1) * Constant.RECORD_PER_PAGE);
+        parameterMap.put("offset", (page - 1) * Constant.RECORD_PER_PAGE);
         parameterMap.put("fetch next", Constant.RECORD_PER_PAGE);
         return queryGenericDAO(Products.class, sql, parameterMap);
     }
@@ -70,14 +83,14 @@ public class ProductDAO extends GenericDAO<Products> {
     }
 
     public void deleteById(int productID) {
-       String sql = "DELETE FROM [dbo].[Products]\n"
+        String sql = "DELETE FROM [dbo].[Products]\n"
                 + "      WHERE productID = ?";
         parameterMap = new LinkedHashMap<>();
         parameterMap.put("productID", productID);
         updateGenericDAO(sql, parameterMap);
     }
 
-    public void updateproduct(Products products) {   
+    public void updateproduct(Products products) {
         String sql = "UPDATE [dbo].[Products]\n"
                 + "   SET [typeID] =?\n"
                 + "      ,[image] = ?\n"
@@ -86,12 +99,12 @@ public class ProductDAO extends GenericDAO<Products> {
                 + "      ,[price] = ?\n"
                 + " WHERE productID = ?";
         parameterMap = new LinkedHashMap<>();
-        
+
         parameterMap.put("typeID", products.getTypeID());
         parameterMap.put("image", products.getImage());
         parameterMap.put("quantity", products.getStockQuantity());
         parameterMap.put("name", products.getProductName());
-        parameterMap.put("price", products.getPrice());  
+        parameterMap.put("price", products.getPrice());
         parameterMap.put("productID", products.getProductID());
         updateGenericDAO(sql, parameterMap);
     }

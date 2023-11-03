@@ -14,10 +14,18 @@
                 <form id="editProductForm" action="dashboard?action=edit" method="POST" enctype="multipart/form-data">                   
                     <!--TypeID-->
                     <div class="form-group">
-                        <label for="author">TypeID:</label>
-                        <input type="text" class="form-control" id="tidEditInput" name="typeID">
+                        <label for="tidEditInput">TypeID:</label>
+                        <select class="custom-select" id="tidEditInput" name="typeID">
+                            <c:forEach items ="${listCategory}" var="category">
+                                <option value="${category.id}">${category.name}</option>
+                            </c:forEach>
+                        </select>
                         <div id="tidEditError" class="error"></div>
                     </div>
+                    <!--Product id-->
+                    <div class="form-group" style="display: none">
+                        <input type="text" class="form-control" id="idEditInput" name="id">
+                    </div>     
                     <!--Name-->
                     <div class="form-group">
                         <label for="name">Name:</label>

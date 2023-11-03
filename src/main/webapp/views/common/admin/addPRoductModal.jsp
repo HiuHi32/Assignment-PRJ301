@@ -21,7 +21,11 @@
                     <!--TypeID-->
                     <div class="form-group">
                         <label for="tid">TypeID:</label>
-                        <input type="text" class="form-control" id="tidInput" name="typeID">
+                        <select class="custom-select" id="tidInput" name="typeID">
+                            <c:forEach items ="${listCategory}" var="category">
+                                <option value="${category.id}">${category.name}</option>
+                            </c:forEach>
+                        </select>
                         <div id="tidError" class="error"></div>
                     </div>
                     <!--ProductName-->
@@ -60,7 +64,7 @@
                              style="display: none; max-width: 300px; max-height: 300px;">
 
                     </div>
-                    
+
                 </form>
             </div>
             <div class="modal-footer">

@@ -41,8 +41,9 @@
                             <td name="image">
                                 <img width="100px"
                                      height="100px"
-                                     src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" 
-                                     alt="..." class="card-img-top">
+                                     src="${product.image}" 
+                                     alt="..." class="card-img-top"
+                                     style="object-fit: contain">
                             </td>
                             <td>
                                 <i class="fa fa-edit fa-2x" style="color: #469408"

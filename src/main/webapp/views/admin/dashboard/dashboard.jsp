@@ -73,7 +73,7 @@
         <jsp:include page="../../common/admin/logOutModal.jsp"></jsp:include>
 
             <!--Add product modal-->
-        <jsp:include page="../../common/admin/addProductModal.jsp"></jsp:include>
+        <jsp:include page="../../common/admin/addPRoductModal.jsp"></jsp:include>
 
             <!--Delete product modal-->
         <jsp:include page="../../common/admin/deleteProductModal.jsp"></jsp:include>

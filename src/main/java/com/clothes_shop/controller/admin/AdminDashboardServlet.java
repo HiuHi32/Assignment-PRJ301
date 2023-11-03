@@ -6,6 +6,8 @@ package com.clothes_shop.controller.admin;
 
 import com.clothes_shop.dal.GenericDAO;
 import com.clothes_shop.dal.impl.ProductDAO;
+import com.clothes_shop.dal.impl.ProductTypeDAO;
+import com.clothes_shop.entity.ProductTypes;
 import com.clothes_shop.entity.Products;
 import java.io.File;
 import java.io.IOException;
@@ -29,23 +31,21 @@ public class AdminDashboardServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {       
+            throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
         GenericDAO<Products> productDAO = new ProductDAO();
-        //GenericDAO<Category> categoryAO = new CategoryDAO();
-
+        ProductTypeDAO productTypeDAO = new ProductTypeDAO();
         //tạo ra session
         HttpSession session = request.getSession();
 
         //get dữ liệu từ DB lên
         List<Products> listProduct = productDAO.findAll();
-        //List<Category> listCategory = categoryAO.findAll();
-        System.out.println(listProduct);
+        List<ProductTypes> listCategory = productTypeDAO.findAll();
         //set listBook vaof session
         session.setAttribute("listProduct", listProduct);
-        //session.setAttribute("listCategory", listCategory);
+        session.setAttribute("listCategory", listCategory);
         request.getRequestDispatcher("../views/admin/dashboard/dashboard.jsp").forward(request, response);
     }
 
@@ -113,7 +113,7 @@ public class AdminDashboardServlet extends HttpServlet {
 
             File image = new File(dir, part.getSubmittedFileName());
             part.write(image.getAbsolutePath());
-            imagePath = request.getContextPath() +  "/images/" + image.getName();
+            imagePath = request.getContextPath() + "/images/" + image.getName();
         } catch (Exception e) {
         }
         Products products = Products.builder()
@@ -140,27 +140,24 @@ public class AdminDashboardServlet extends HttpServlet {
     private void edit(HttpServletRequest request) {
         Products products = new Products();
         //get information
+        int id = Integer.parseInt(request.getParameter("id"));
         //get typeid
         int typeID = Integer.parseInt(request.getParameter("typeID"));
         //get name
         String productName = request.getParameter("productName");
-        //get author
-        String author = request.getParameter("author");
         //get price
         int price = Integer.parseInt(request.getParameter("price"));
         //get quantity
         int stockQuantity = Integer.parseInt(request.getParameter("quantity"));
-       
 
         String imagePath = null;
         //get image
         try {
 
             Part part = request.getPart("image");
-            if (part == null || part.getSize() <= 0) {
+            if (part.getSubmittedFileName() == null || part.getSubmittedFileName().trim().isEmpty()) {
                 // Sử dụng ảnh hiện tại và cập nhật đường dẫn (imagePath)
-                String currentImage = request.getParameter("currentImage");
-                products.setImage(currentImage);
+                imagePath = request.getParameter("currentImage");
             } else {
                 try {
                     String path = request.getServletContext().getRealPath("/images");
@@ -172,7 +169,7 @@ public class AdminDashboardServlet extends HttpServlet {
 
                     File image = new File(dir, part.getSubmittedFileName());
                     part.write(image.getAbsolutePath());
-                    imagePath = "/BookStore-FA23/images/" + image.getName();
+                    imagePath = request.getContextPath() + "/images/" + image.getName();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -181,6 +178,7 @@ public class AdminDashboardServlet extends HttpServlet {
             System.out.println(e.getMessage());
         }
         //setter parameter
+        products.setProductID(id);
         products.setTypeID(typeID);
         products.setProductName(productName);
         products.setPrice(price);
