@@ -111,7 +111,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <c:if test="${cart.listOrderDetails.isEmpty() == false}">
+                                <!--  <c:if test="${cart.listOrderDetails.isEmpty() == false}">
                                     <div class="col-lg-4">
                                         <div class="iq-card">
                                             <div class="iq-card-body">
@@ -164,7 +164,60 @@
                                             </div>
                                         </div>
                                     </div>
-                                </c:if>
+                                </c:if>-->
+                                <div class="col-lg-4">
+                                    <div class="iq-card">
+                                        <div class="iq-card-body">
+                                            <p><b>Chi tiết</b></p>
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <span>Tổng</span>
+                                                <span class="total-price-element">300đ</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <span>Phí vận chuyển</span>
+                                                <span class="text-success">Miễn phí</span>
+                                            </div>
+                                            <hr>
+                                            <div class="d-flex justify-content-between">
+                                                <span class="text-dark"><strong>Tổng</strong></span>
+                                                <span class="text-dark total-price-element"><strong>300đ</strong></span>
+                                            </div>
+                                            Purchase
+                                            <form class="form-customer" action="check-out?action=purchase" method="POST">
+                                                <a id="place-order"
+                                                   onclick="this.closest('form').submit()"
+                                                   class="btn btn-primary d-block mt-3 next">
+                                                    Đặt hàng
+                                                </a>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="iq-card ">
+                                        <div class="card-body iq-card-body p-0 iq-checkout-policy">
+                                            <ul class="p-0 m-0">
+                                                <li class="d-flex align-items-center">
+                                                    <div class="iq-checkout-icon">
+                                                        <i class="ri-checkbox-line"></i>
+                                                    </div>
+                                                    <h6>Chính sách bảo mật (Thanh toán an toàn và bảo mật.)</h6>
+                                                </li>
+                                                <li class="d-flex align-items-center">
+                                                    <div class="iq-checkout-icon">
+                                                        <i class="ri-truck-line"></i>
+                                                    </div>
+                                                    <h6>Chính sách giao hàng (Giao hàng tận nhà.)</h6>
+                                                </li>
+                                                <li class="d-flex align-items-center">
+                                                    <div class="iq-checkout-icon">
+                                                        <i class="ri-arrow-go-back-line"></i>
+                                                    </div>
+                                                    <h6>Chính sách hoàn trả</h6>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -228,50 +281,50 @@
         <script src="${pageContext.request.contextPath}/js/check-out/custom.js"></script>
 
         <script>
-                                                           window.addEventListener('DOMContentLoaded', function () {
-                                                               updateTotalPrice();
+                                                       window.addEventListener('DOMContentLoaded', function () {
+                                                           updateTotalPrice();
+                                                       });
+                                                       function adjustQuantity(button, adjustment) {
+                                                           let productItem = button.closest('.product-item');
+                                                           let quantityInput = productItem.querySelector('.quantity');
+
+                                                           let currentQuantity = parseInt(quantityInput.value, 10) || 0;
+
+                                                           // Điều chỉnh số lượng
+                                                           currentQuantity += adjustment;
+
+                                                           // Đảm bảo số lượng luôn lớn hơn 0
+                                                           currentQuantity = Math.max(currentQuantity, 0);
+                                                           quantityInput.value = currentQuantity;
+
+                                                           //lấy ra form
+                                                           let form = button.closest("form");
+                                                           form.submit();
+                                                           //submit form
+                                                       }
+
+                                                       function updateTotalPrice() {
+                                                           // Lấy tất cả các phần tử có giá của từng sản phẩm
+                                                           let individualPrices = document.querySelectorAll('.product-total-price');
+
+                                                           // Khởi tạo tổng giá tiền
+                                                           let total = 0;
+
+                                                           // Duyệt qua mỗi giá và cộng dồn
+                                                           individualPrices.forEach(priceElement => {
+                                                               let price = parseFloat(priceElement.textContent.replace('₫', '').replace(/\./g, '').trim());
+                                                               total += price;
                                                            });
-                                                           function adjustQuantity(button, adjustment) {
-                                                               let productItem = button.closest('.product-item');
-                                                               let quantityInput = productItem.querySelector('.quantity');
 
-                                                               let currentQuantity = parseInt(quantityInput.value, 10) || 0;
-
-                                                               // Điều chỉnh số lượng
-                                                               currentQuantity += adjustment;
-
-                                                               // Đảm bảo số lượng luôn lớn hơn 0
-                                                               currentQuantity = Math.max(currentQuantity, 0);
-                                                               quantityInput.value = currentQuantity;
-
-                                                               //lấy ra form
-                                                               let form = button.closest("form");
-                                                               form.submit();
-                                                               //submit form
-                                                           }
-
-                                                           function updateTotalPrice() {
-                                                               // Lấy tất cả các phần tử có giá của từng sản phẩm
-                                                               let individualPrices = document.querySelectorAll('.product-total-price');
-
-                                                               // Khởi tạo tổng giá tiền
-                                                               let total = 0;
-
-                                                               // Duyệt qua mỗi giá và cộng dồn
-                                                               individualPrices.forEach(priceElement => {
-                                                                   let price = parseFloat(priceElement.textContent.replace('₫', '').replace(/\./g, '').trim());
-                                                                   total += price;
+                                                           // Cập nhật tổng giá tiền lên giao diện
+                                                           let totalElements = document.querySelectorAll('.total-price-element');
+                                                           totalElements.forEach(totalElement => {
+                                                               totalElement.textContent = total.toLocaleString('vi-VN', {
+                                                                   style: 'currency',
+                                                                   currency: 'VND'
                                                                });
-
-                                                               // Cập nhật tổng giá tiền lên giao diện
-                                                               let totalElements = document.querySelectorAll('.total-price-element');
-                                                               totalElements.forEach(totalElement => {
-                                                                   totalElement.textContent = total.toLocaleString('vi-VN', {
-                                                                       style: 'currency',
-                                                                       currency: 'VND'
-                                                                   });
-                                                               });
-                                                           }
+                                                           });
+                                                       }
 
 
         </script>

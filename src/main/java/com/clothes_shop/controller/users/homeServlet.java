@@ -64,7 +64,7 @@ public class homeServlet extends HttpServlet {
                 //tìm về các quyển sách dựa theo thuộc tính name và keyword muốn tìm kiếm
                 listProduct = productDAO.findContainsByProperty("productName", keyword);
                 break;
-            //tìm về toàn bộ các quyển sách
+            //tìm về toàn bộ các san pham
             default:
                 listProduct = productDAO.findAll();
                 break;

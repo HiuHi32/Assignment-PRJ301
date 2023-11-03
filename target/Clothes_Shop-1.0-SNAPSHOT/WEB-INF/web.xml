@@ -37,6 +37,10 @@
         <servlet-name>CheckOutServlet</servlet-name>
         <servlet-class>com.clothes_shop.controller.users.CheckOutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Order</servlet-name>
+        <servlet-class>com.clothes_shop.controller.users.Order</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>authenticationServlet</servlet-name>
         <url-pattern>/authen</url-pattern>
@@ -60,6 +64,10 @@
     <welcome-file-list>
         <welcome-file>home</welcome-file>
     </welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>Order</servlet-name>
+        <url-pattern>/order</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
